@@ -1,0 +1,27 @@
+Feature: User manages fillins
+   Scenario: User adds a new Fillin
+		 Given I am logged in as administrator
+     	 And I go to the new Fillin page
+         And I fill in "Name" with "currency"
+         And I fill in "Description" with "A currency value fillin"
+         When I press "Create"
+         Then I should be on the list fillin page
+         And I should see "currency"
+   
+   Scenario: User edits an existing fillin
+		 Given I am logged in as administrator
+         And I have a fillin
+         And I go to the edit fillin page
+         And I fill in "Name" with "currency Two"
+         And I fill in "Description" with "A currency value fillin"
+         When I press "Update"
+         Then I should be on the show fillin page
+         And I should see "currency Two"
+       
+   Scenario: User edits an existing fillin and enters invalid data
+		 Given I am logged in as administrator
+         And I have a fillin
+         And I go to the edit fillin page
+         And I fill in "Name" with ""
+         When I press "Update"
+         Then I should see "error"

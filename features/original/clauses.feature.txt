@@ -1,0 +1,31 @@
+Feature: User manages clauses
+	Scenario: User adds a new clause
+		Given I am logged in as administrator
+			And I am on the new clause page
+			And I fill in "Number" with "String"
+			And I fill in "Title" with "Title"
+			And I fill in "clause_begin_date_picker" with "1/1/2011"
+			And I fill in "clause_end_date_picker" with "2/1/2011"
+			When I press "Create"
+			Then I should be on the list clause page
+			And I should see "Title"
+
+	Scenario: User edits an existing clause
+		Given I am logged in as administrator
+			And I have a clause
+			And I go to the edit clause page
+			And I fill in "Number" with "Boolean"
+			And I fill in "Title" with "Display Name String"
+			And I fill in "clause_begin_date_picker" with "1/1/2011"
+			And I fill in "clause_end_date_picker" with "2/1/2011"
+			When I press "Update"
+			Then I should be on the show clause page
+			And I should see "Boolean"
+			
+	Scenario: User edits an existing clause and enters invalid data
+		Given I am logged in as administrator
+			And I have a clause
+			And I go to the edit clause page
+			And I fill in "Title" with ""
+			When I press "Update"
+			Then I should see "error"

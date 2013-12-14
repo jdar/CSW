@@ -1,0 +1,182 @@
+module NavigationHelpers
+  # Maps a name to a path. Used by the
+  #
+  # When /^I go to (.+)$/ do |page_name|
+  #
+  # step definition in web_steps.rb
+  #
+  def path_to(page_name)
+    case page_name
+
+    when /the home\s?page/
+      '/'
+    when /the new role page/
+      new_role_path
+
+
+    when /the new data_type page/i
+      new_data_type_path
+
+    when /the edit data_type page/i
+      edit_data_type_path(@data_type)
+
+    when /the delete data_type page/i
+      delete_data_type_path(@data_type)
+
+    when /the data_type list page/i
+      data_types_path
+      
+    when /the new constraint_type page/i
+      new_constraint_type_path
+
+    when /the edit constraint_type page/i
+      edit_constraint_type_path(@constraint_type)
+
+    when /the delete constraint_type page/i
+      delete_constraint_type_path(@constraint_type)
+      
+    when /the show constraint_type page/i
+      constraint_type_path(@constraint_type)
+
+    when /the list constraint_type page/i
+      constraint_types_path($1)
+    
+    
+    #PRESCRIPTION
+    when /the new prescription page/i
+      new_prescription_path
+
+    when /the edit prescription page/i
+      edit_prescription_path(@prescription)
+
+    when /the delete prescription page/i
+      delete_prescription_path(@prescription)
+
+    when /the show prescription page/i
+      prescription_path(@prescription)
+
+    when /the list prescription page/i
+      prescriptions_path($1)
+      
+    
+    #CLAUSE
+    when /the new clause page/i
+      new_clause_path
+
+    when /the edit clause page/i
+      edit_clause_path(@clause)
+
+    when /the delete clause page/i
+      delete_clause_path(@clause)
+
+    when /the show clause page/i
+      clause_path(@clause)
+
+    when /the list clause page/i
+      clauses_path($1)
+        
+    
+    
+    #CLAUSE TYPES
+    when /the new clause_type page/i
+      new_clause_type_path
+
+    when /the edit clause_type page/i
+      edit_clause_type_path(@clause_type)
+
+    when /the delete clause_type page/i
+      delete_clause_type_path(@clause_type)
+      
+    when /the show clause_type page/i
+      clause_type_path(@clause_type)
+
+    when /the list clause_type page/i
+      clause_types_path($1)
+      
+    #INDICATORS
+    
+    when /the new indicator page/i
+      
+      #requires this values to exists in db
+      ConstraintType.create!(:name => "NONE", :display_name=>"None", :description => "")
+      ConstraintType.create!(:name => "PICK_ONE", :display_name=>"Pick One", :description => "")
+      ConstraintType.create!(:name => "PICK_MANY", :display_name=>"Pick Many", :description => "")
+      
+      new_indicator_path
+
+    when /the edit indicator page/i
+      edit_indicator_path(@indicator)
+
+    when /the delete indicator page/i
+      delete_indicator_path(@indicator)
+      
+    when /the show indicator page/i
+      indicator_path(@indicator)
+
+    when /the list indicator page/i
+      indicators_path
+      
+      
+      
+    when /the new indicator group page/i
+      new_indicator_group_path
+
+    when /the edit indicator group page/i
+      edit_indicator_group_path(@indicatorGroup)
+
+    when /the delete indicator group page/i
+      delete_indicator_group_path(@indicatorGroup)
+      
+    when /the show indicator group page/i
+      indicator_group_path(@indicatorGroup)
+
+    when /the list indicator group page/i
+      indicator_groups_path
+      
+    when /the main page/i
+      root_path
+      
+    when /the list role page/i
+      roles_path
+
+    # FILLINS PATH
+    when /the new fillin page/i
+      #requires this values to exists in db
+      ConstraintType.create!(:name => "NONE", :display_name=>"None", :description => "")
+      ConstraintType.create!(:name => "PICK_ONE", :display_name=>"Pick One", :description => "")
+      ConstraintType.create!(:name => "PICK_MANY", :display_name=>"Pick Many", :description => "")
+      
+      new_fillin_path
+
+    when /the edit fillin page/i
+      edit_fillin_path(@fillin)
+
+    when /the delete fillin page/i
+      delete fillin_path(@fillin)
+   
+    when /the list fillin page/i
+      fillins_path
+
+    when /the show fillin page/
+      fillin_path(@fillin)
+
+    # Add more mappings here.
+    # Here is an example that pulls values out of the Regexp:
+    #
+    # when /^(.*)'s profile page$/i
+    # user_profile_path(User.find_by_login($1))
+
+    else
+      begin
+        page_name =~ /the (.*) page/
+        path_components = $1.split(/\s+/)
+        self.send(path_components.push('path').join('_').to_sym)
+      rescue Object => e
+        raise "Can't find mapping from \"#{page_name}\" to a path.\n" +
+          "Now, go and add a mapping in #{__FILE__}"
+      end
+    end
+  end
+end
+
+World(NavigationHelpers)

@@ -1,0 +1,30 @@
+Feature: User manages constraint_types
+	Scenario: User adds a new constraint_type
+		Given I am logged in as administrator
+		And I go to the new constraint_type page
+		And I fill in "Name" with "String"
+		And I fill in "Display" with "String"
+		And I fill in "Description" with "A constraint type expected to be an integer"
+		When I press "Create"
+		Then I should be on the list constraint_type page
+		And I should see "String"
+
+	Scenario: User edits an existing constraint_type
+		Given I am logged in as administrator
+		And I have a constraint_type
+		And I go to the edit constraint_type page
+		And I fill in "Name" with "Boolean"
+		And I fill in "Display" with "Display Name String"
+		And I fill in "Description" with "A constraint type expected to be a boolean"
+		When I press "Update"
+		Then I should be on the show constraint_type page
+		And I should see "Boolean"
+
+	Scenario: User edits an existing constraint_type and enters invalid data
+		Given I am logged in as administrator
+		And I have a constraint_type
+		And I go to the edit constraint_type page
+		And I fill in "Name" with ""
+		When I press "Update"
+		Then I should see "error"
+

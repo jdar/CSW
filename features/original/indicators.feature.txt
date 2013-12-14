@@ -1,0 +1,27 @@
+Feature: User manages indicators
+	Scenario: User adds a new indicator
+		Given I am logged in as administrator
+			And I am on the new indicator page
+			And I fill in "Name" with "String"
+			And I fill in "Description" with "An indicator expected to be a String"
+			When I press "Create"
+			Then I should be on the list indicator page
+			And I should see "String"
+
+	Scenario: User edits an existing indicator
+		Given I am logged in as administrator
+		 	And I have an indicator
+			And I go to the edit indicator page
+			And I fill in "Name" with "Boolean"
+			And I fill in "Description" with "An indicator expected to be a boolean"
+			When I press "Update"
+			Then I should be on the show indicator page
+			And I should see "Boolean"
+			
+	Scenario: User edits an existing indicator and enters invalid data
+		Given I am logged in as administrator
+			And I have an indicator
+			And I go to the edit indicator page
+			And I fill in "Name" with ""
+			When I press "Update"
+			Then I should see "error"

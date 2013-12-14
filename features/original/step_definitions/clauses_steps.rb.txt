@@ -1,0 +1,7 @@
+Given /I have a clause/ do
+  
+  #requires this values to exists in db
+  @regulation = Regulation.create!(:name => "String", :description => "A regulation type string")
+  
+  @clause = Clause.create!(:number => "String", :title=>"String", :description => "A text", :body => "text", :begin_date =>"1/1/2011",:end_date =>"2/1/2011", :regulation => @regulation)
+end

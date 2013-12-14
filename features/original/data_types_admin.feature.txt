@@ -1,0 +1,29 @@
+Feature: User manages data_types
+	Scenario: User adds a new data_type
+	Given I am logged in as administrator
+		And I go to the new data_type page
+		And I fill in "Name" with "Integer"
+		And I fill in "Display" with "String"
+		And I fill in "Description" with "A data type expected to be an integer"
+		When I press "Create"
+		Then I should be on the data_type list page
+		And I should see "String"
+
+Scenario: User edits an existing data_type
+	Given I am logged in as administrator
+		And I have a data_type
+		And I go to the edit data_type page
+		And I fill in "Name" with "Boolean"
+		And I fill in "Display" with "Display Name String"
+		And I fill in "Description" with "A data type expected to be a boolean"
+		When I press "Update"
+		Then I should be on the data_type list page
+		And I should see "Display Name String"
+
+Scenario: User edits an existing data_type and enters invalid data
+	Given I am logged in as administrator
+		And I have a data_type
+		And I go to the edit data_type page
+		And I fill in "Name" with ""
+		When I press "Update"
+		Then I should see "error"

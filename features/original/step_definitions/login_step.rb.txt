@@ -1,0 +1,19 @@
+Given /I am logged in as administrator/ do
+  role = Role.new
+  role.name = 'admin'
+  role.save
+  
+  
+  user = User.new
+  user.id = 1
+  user.login = 'admin'
+  user.password = 'admin'
+  user.roles << role
+  user.save
+  
+
+  visit log_in_path
+  fill_in "login", :with => 'admin'
+  fill_in "password", :with => 'admin'
+  click_button 'commit'
+end

@@ -1,0 +1,11 @@
+Given /I have an indicator/ do
+  
+  #requires this values to exists in db
+  @ct = ConstraintType.create!(:name => "NONE", :display_name=>"None", :description => "")
+  ConstraintType.create!(:name => "PICK_ONE", :display_name=>"Pick One", :description => "")
+  ConstraintType.create!(:name => "PICK_MANY", :display_name=>"Pick Many", :description => "")
+  
+  @dt = DataType.create!(:name => "Integer", :display_name=>"String", :description => "A data type expected to be a Boolean")
+  @ig = IndicatorGroup.create!(:name => "Main", :display_name=>"Main", :description => "An indicator group string")
+  @indicator = Indicator.create!(:name => "String", :description => "An indicator string",:indicator_group => @ig , :data_type => @dt, :constraint_type => @ct)
+end

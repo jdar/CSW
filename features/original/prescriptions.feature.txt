@@ -1,0 +1,27 @@
+Feature: User manages prescriptions
+	Scenario: User adds a new prescription
+		Given I am logged in as administrator
+		And I am on the new prescription page
+		And I fill in "Number" with "String"
+		And I fill in "Title" with "Prescription"
+		When I press "Create"
+		Then I should be on the list prescription page
+		And I should see "Prescription"
+
+	Scenario: User edits an existing prescription
+		Given I am logged in as administrator
+			And I have a prescription
+			And I go to the edit prescription page
+			And I fill in "Number" with "Boolean"
+			And I fill in "Title" with "Display Name String"
+			When I press "Update"
+			Then I should be on the show prescription page
+			And I should see "Boolean"
+			
+	Scenario: User edits an existing prescription and enters invalid data
+		Given I am logged in as administrator
+			And I have a prescription
+			And I go to the edit prescription page
+			And I fill in "Number" with ""
+			When I press "Update"
+			Then I should see "error"

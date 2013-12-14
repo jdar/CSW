@@ -1,0 +1,7 @@
+This 'features/original/' directory contains the entire contents of the original 'features/'
+directory as of December 11, 2013.  All of the files have been renamed, however, by adding
+a '.txt' suffix so that cucumber will not detect them.  The cucumber gem was removed from
+the project in November 2013; thus these files were unused and are obsolete.
+
+This 'features/original/' directory should be considered "scaffolding", and should be deleted
+after we have established a new set of working features and step-definitions for the application.

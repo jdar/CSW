@@ -1,0 +1,29 @@
+Feature: User manages indicator_groups
+	Scenario: User adds a new indicator group
+		Given I am logged in as administrator
+		 	And I go to the new indicator_group page
+			And I fill in "Name" with "Main"
+			And I fill in "Display" with "Main"
+			And I fill in "Description" with "An indicator group"
+			When I press "Create"
+			Then I should be on the list indicator group page
+			And I should see "Main"
+
+	Scenario: User edits an existing indicator_groups
+		Given I am logged in as administrator
+		 	And I have a group
+			And I go to the edit indicator group page
+			And I fill in "Name" with "Boolean"
+			And I fill in "Display" with "Display Name String"
+			And I fill in "Description" with "An indicator group"
+			When I press "Update"
+			Then I should be on the show indicator group page
+			And I should see "Boolean"
+			
+	Scenario: User edits an existing indicator_groups and enters invalid data
+		Given I am logged in as administrator
+		 	And I have a group
+			And I go to the edit indicator group page
+			And I fill in "Name" with ""
+			When I press "Update"
+			Then I should see "error"	

@@ -1,0 +1,5 @@
+Given /I have a prescription/ do
+  @rt = Regulation.create!(:name => "regtype", :description => "This is description")
+  
+  @prescription = Prescription.create!(:number => "INTEGER", :title => "Integer", :body => "A prescription text", :regulation => @rt)
+end
