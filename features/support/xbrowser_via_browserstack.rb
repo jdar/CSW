@@ -53,7 +53,7 @@ end
 =end
 Around("@xbrowser") do |scenario,block|
   orig_driver = Capybara.default_driver
-  #$only_open_tunnel_once ||= (open_tunnel! || true)
+  $only_open_tunnel_once ||= (open_tunnel! || true)
   begin
     browser = browsers[0]
     #Parallel.map(browsers, :in_threads => 1) do |browser|

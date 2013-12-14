@@ -1,28 +1,82 @@
-== README
+== Problem
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Browserstack is not working with my capybara setup. Help!
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+features/support/xbrowser_via_browserstack.rb
 
 
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+== ERROR LOG
+
+```
+2.0.0 in CSW/ on master
+› cucumber BS_USERNAME=dariusroberts BS_AUTHKEY=<my userkey>
+WARN: Unresolved specs during Gem::Specification.reset:
+      nokogiri (>= 1.3.3, >= 1.5.0, ~> 1.3)
+      mime-types (>= 1.16, ~> 1.16)
+      minitest (~> 4.2)
+      treetop (~> 1.4.8)
+      rake (>= 0.8.7)
+      sprockets (~> 2.8)
+WARN: Clearing out unresolved specs.
+Please report a bug if this causes problems.
+Feature: Basic Test
+  As a user
+  I want to access the site
+
+  @xbrowser
+  Scenario: Finding the banner button # features/got_here.feature:6
+    Given I am on the homepage        # features/step_definitions/test_steps.rb:1
+      undefined method `needs_server?' for #<Selenium::WebDriver::Driver:0x007fdecd9b0790> (NoMethodError)
+      ./features/step_definitions/test_steps.rb:2:in `/^I am on the homepage$/'
+      ./features/support/xbrowser_via_browserstack.rb:62:in `call'
+      ./features/support/xbrowser_via_browserstack.rb:62:in `block in <top (required)>'
+      features/got_here.feature:7:in `Given I am on the homepage'
+    Then I should see "got here"      # features/step_definitions/page_validation_steps.rb:1
+
+Failing Scenarios:
+cucumber features/got_here.feature:6 # Scenario: Finding the banner button
+
+1 scenario (1 failed)
+2 steps (1 failed, 1 skipped)
+
+
+
+
+      undefined method `needs_server?' for #<Selenium::WebDriver::Driver:0x007fcd75f27980> (NoMethodError)
+      /opt/boxen/rbenv/versions/2.0.0-p247/lib/ruby/gems/2.0.0/gems/capybara-2.1.0/lib/capybara/session.rb:54:in `initialize'
+      /opt/boxen/rbenv/versions/2.0.0-p247/lib/ruby/gems/2.0.0/gems/capybara-2.1.0/lib/capybara.rb:236:in `new'
+      /opt/boxen/rbenv/versions/2.0.0-p247/lib/ruby/gems/2.0.0/gems/capybara-2.1.0/lib/capybara.rb:236:in `current_session'
+      /opt/boxen/rbenv/versions/2.0.0-p247/lib/ruby/gems/2.0.0/gems/capybara-2.1.0/lib/capybara/dsl.rb:46:in `page'
+      /opt/boxen/rbenv/versions/2.0.0-p247/lib/ruby/gems/2.0.0/gems/capybara-2.1.0/lib/capybara/dsl.rb:51:in `block (2 levels) in <module:DSL>'
+      /Users/jdar/src/hgs/CSW/features/step_definitions/test_steps.rb:2:in `block in <top (required)>'
+      /opt/boxen/rbenv/versions/2.0.0-p247/lib/ruby/gems/2.0.0/gems/cucumber-1.3.10/lib/cucumber/core_ext/instance_exec.rb:48:in `instance_exec'
+      /opt/boxen/rbenv/versions/2.0.0-p247/lib/ruby/gems/2.0.0/gems/cucumber-1.3.10/lib/cucumber/core_ext/instance_exec.rb:48:in `block in cucumber_instance_exec'
+      /opt/boxen/rbenv/versions/2.0.0-p247/lib/ruby/gems/2.0.0/gems/cucumber-1.3.10/lib/cucumber/core_ext/instance_exec.rb:69:in `cucumber_run_with_backtrace_filtering'
+      /opt/boxen/rbenv/versions/2.0.0-p247/lib/ruby/gems/2.0.0/gems/cucumber-1.3.10/lib/cucumber/core_ext/instance_exec.rb:36:in `cucumber_instance_exec'
+      /opt/boxen/rbenv/versions/2.0.0-p247/lib/ruby/gems/2.0.0/gems/cucumber-1.3.10/lib/cucumber/rb_support/rb_step_definition.rb:97:in `invoke'
+      /opt/boxen/rbenv/versions/2.0.0-p247/lib/ruby/gems/2.0.0/gems/cucumber-1.3.10/lib/cucumber/step_match.rb:25:in `invoke'
+      /opt/boxen/rbenv/versions/2.0.0-p247/lib/ruby/gems/2.0.0/gems/cucumber-1.3.10/lib/cucumber/ast/step_invocation.rb:60:in `invoke'
+      /opt/boxen/rbenv/versions/2.0.0-p247/lib/ruby/gems/2.0.0/gems/cucumber-1.3.10/lib/cucumber/ast/step_invocation.rb:38:in `accept'
+      /opt/boxen/rbenv/versions/2.0.0-p247/lib/ruby/gems/2.0.0/gems/cucumber-1.3.10/lib/cucumber/ast/tree_walker.rb:106:in `block in visit_step'
+      /opt/boxen/rbenv/versions/2.0.0-p247/lib/ruby/gems/2.0.0/gems/cucumber-1.3.10/lib/cucumber/ast/tree_walker.rb:170:in `broadcast'
+      /opt/boxen/rbenv/versions/2.0.0-p247/lib/ruby/gems/2.0.0/gems/cucumber-1.3.10/lib/cucumber/ast/tree_walker.rb:105:in `visit_step'
+      /opt/boxen/rbenv/versions/2.0.0-p247/lib/ruby/gems/2.0.0/gems/cucumber-1.3.10/lib/cucumber/ast/step_collection.rb:19:in `block in accept'
+      /opt/boxen/rbenv/versions/2.0.0-p247/lib/ruby/gems/2.0.0/gems/cucumber-1.3.10/lib/cucumber/ast/step_collection.rb:18:in `each'
+      /opt/boxen/rbenv/versions/2.0.0-p247/lib/ruby/gems/2.0.0/gems/cucumber-1.3.10/lib/cucumber/ast/step_collection.rb:18:in `accept'
+      /opt/boxen/rbenv/versions/2.0.0-p247/lib/ruby/gems/2.0.0/gems/cucumber-1.3.10/lib/cucumber/ast/tree_walker.rb:100:in `block in visit_steps'
+      /opt/boxen/rbenv/versions/2.0.0-p247/lib/ruby/gems/2.0.0/gems/cucumber-1.3.10/lib/cucumber/ast/tree_walker.rb:170:in `broadcast'
+      /opt/boxen/rbenv/versions/2.0.0-p247/lib/ruby/gems/2.0.0/gems/cucumber-1.3.10/lib/cucumber/ast/tree_walker.rb:99:in `visit_steps'
+      /opt/boxen/rbenv/versions/2.0.0-p247/lib/ruby/gems/2.0.0/gems/cucumber-1.3.10/lib/cucumber/ast/tree_walker.rb:15:in `block in execute'
+      /opt/boxen/rbenv/versions/2.0.0-p247/lib/ruby/gems/2.0.0/gems/cucumber-1.3.10/lib/cucumber/runtime.rb:83:in `block (2 levels) in with_hooks'
+      /opt/boxen/rbenv/versions/2.0.0-p247/lib/ruby/gems/2.0.0/gems/cucumber-1.3.10/lib/cucumber/runtime.rb:99:in `before_and_after'
+      /opt/boxen/rbenv/versions/2.0.0-p247/lib/ruby/gems/2.0.0/gems/cucumber-1.3.10/lib/cucumber/runtime.rb:82:in `block in with_hooks'
+      /opt/boxen/rbenv/versions/2.0.0-p247/lib/ruby/gems/2.0.0/gems/cucumber-1.3.10/lib/cucumber/runtime/support_code.rb:120:in `call'
+      /opt/boxen/rbenv/versions/2.0.0-p247/lib/ruby/gems/2.0.0/gems/cucumber-1.3.10/lib/cucumber/runtime/support_code.rb:120:in `block (3 levels) in around'
+      /opt/boxen/rbenv/versions/2.0.0-p247/lib/ruby/gems/2.0.0/gems/cucumber-1.3.10/lib/cucumber/language_support/language_methods.rb:9:in `block in around'
+      /opt/boxen/rbenv/versions/2.0.0-p247/lib/ruby/gems/2.0.0/gems/cucumber-1.3.10/lib/cucumber/language_support/language_methods.rb:94:in `call'
+      /opt/boxen/rbenv/versions/2.0.0-p247/lib/ruby/gems/2.0.0/gems/cucumber-1.3.10/lib/cucumber/language_support/language_methods.rb:94:in `block (3 levels) in execute_around'
+      /Users/jdar/src/hgs/CSW/features/support/xbrowser_via_browserstack.rb:62:in `call'
+      /Users/jdar/src/hgs/CSW/features/support/xbrowser_via_browserstack.rb:62:in `block in <top (required)>'
+      /opt/boxen/rbenv/versions/2.0.0-p247/lib/ruby/gems/2.0.0/gems/cucumber-1.3.10/lib/cucumber/core_ext/instance_exec.rb:48:in `instance_exec'
+
+```
