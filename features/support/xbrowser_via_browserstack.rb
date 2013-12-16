@@ -15,6 +15,7 @@ def open_tunnel!
   #  sleep 1
   #end
 end
+
 at_exit do
   `ps -ef | awk '/BrowserStackTunnel.*,#{Capybara.server_port},/{print $2}' | xargs kill -9`
 end
@@ -55,14 +56,14 @@ Around("@xbrowser") do |scenario,block|
   orig_driver = Capybara.default_driver
   $only_open_tunnel_once ||= (open_tunnel! || true)
   begin
-    browser = browsers[0]
+    browser_name = browsers[0]
     #Parallel.map(browsers, :in_threads => 1) do |browser|
-      #GOTCHA: apparently must assign by symbol.
-      Capybara.default_driver = find_and_register_driver(browser)
-      block.call
-    #end
+    #GOTCHA: apparently must assign by symbol.
+    @browser = find_and_register_driver(browser_name)
+    block.call
+    @browser.quit
   ensure
-    Capybara.default_driver = orig_driver
+    @browser = orig_driver
   end
 end
 
