@@ -9,7 +9,7 @@ def open_tunnel!
   Capybara.default_wait_time = 5
   Capybara.server_port = 3000 #TODO
   sleep 3
-  `java -jar test/BrowserStackTunnel.jar #{ENV['BS_AUTHKEY']} 127.0.0.1,#{Capybara.server_port},0 -v >log/browserstack.log 2>&1 &`
+  `java -jar features/support/BrowserStackTunnel.jar #{ENV['BS_AUTHKEY']} 127.0.0.1,#{Capybara.server_port},0 -v >log/browserstack.log 2>&1 &`
   sleep 3
   #until (`curl -s -o /dev/null -w "%{http_code}" http://127.0.0.1:45691`.to_i == 200)
   #  sleep 1
