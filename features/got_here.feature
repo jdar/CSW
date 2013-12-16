@@ -5,4 +5,6 @@ Feature: Basic Test
   @xbrowser
   Scenario: Finding the banner button
     Given I am on the homepage
-    Then I should see "got here"
+    Then browserstack tunnel is running
+    And Capybara is not :rack_test
+    And I should see "got here"

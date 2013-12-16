@@ -4,6 +4,9 @@ require 'selenium/webdriver'
 #require 'parallel'
 WebMock.disable_net_connect!(:allow_localhost => true,:allow=>/browserstack/)
 
+Capybara.default_wait_time = 5
+Capybara.server_port = 3000 #TODO
+
 browsers = JSON.parse(File.read "features/support/supported_browsers.json")
 def open_tunnel!
   Capybara.default_wait_time = 5
