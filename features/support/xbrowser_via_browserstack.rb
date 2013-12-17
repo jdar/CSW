@@ -4,6 +4,8 @@ require 'selenium/webdriver'
 #require 'parallel'
 WebMock.disable_net_connect!(:allow_localhost => true,:allow=>/browserstack/)
 
+
+
 Capybara.default_wait_time = 5
 Capybara.server_port = 3000 #TODO
 
@@ -12,11 +14,11 @@ def open_tunnel!
   Capybara.default_wait_time = 5
   Capybara.server_port = 3000 #TODO
   sleep 3
-  `java -jar features/support/BrowserStackTunnel.jar #{ENV['BS_AUTHKEY']} 127.0.0.1,#{Capybara.server_port},0 -v >log/browserstack.log 2>&1 &`
+  `java -jar features/support/BrowserStackTunnel.jar #{ENV['BS_AUTHKEY']} localhost,#{Capybara.server_port},0 -v >log/browserstack.log 2>&1 &`
   sleep 3
-  #until (`curl -s -o /dev/null -w "%{http_code}" http://127.0.0.1:45691`.to_i == 200)
-  #  sleep 1
-  #end
+  until (`curl -s -o /dev/null -w "%{http_code}" http://127.0.0.1:45691`.to_i == 200)
+    sleep 5
+  end
 end
 at_exit do
   `ps -ef | awk '/BrowserStackTunnel.*,#{Capybara.server_port},/{print $2}' | xargs kill -9`
@@ -36,11 +38,16 @@ def find_and_register_driver(browser)
       capabilities['browserstack.tunnel'] = 'true'
       capabilities['browserstack.debug'] = 'true'
 
-      Selenium::WebDriver.for(:remote, :url => url, :desired_capabilities => capabilities)
+      #Selenium::WebDriver.for(:remote, :url => url, :desired_capabilities => capabilities)
+      Capybara::Selenium::Driver.new(app,
+                                     :browser => :remote, :url => url,
+                                     :desired_capabilities => capabilities)      
     end
   end
   browser[:symbol]
 end
+
+
 =begin
 #original capybara example
 url = "http://#{ENV['BS_USERNAME']}:#{ENV['BS_AUTHKEY']}@hub.browserstack.com/wd/hub"
